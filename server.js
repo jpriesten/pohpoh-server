@@ -4,11 +4,12 @@ const bodyParser = require('body-parser');
 const dbConfig = require('./config/database.config.js');
 const mongoose = require('mongoose');
 const logger = require('./app/logging/logs');
+const env = require('./app/environment/secrets.env')
 const cors = require('cors');
 
 // create express app
 const app = express();
-const port  =  process.env.PORT || 3000
+const port  =  process.env.PORT || env.PORT
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -21,7 +22,7 @@ mongoose.Promise = global.Promise;
 
 // Connecting to the database
 mongoose.connect(dbConfig.url, {
-    useNewUrlParser: true
+    useNewUrlParser: true, useUnifiedTopology: true
 }).then(() => {
     console.log("Successfully connected to the database");    
 }).catch(err => {
@@ -42,13 +43,13 @@ app.use(cors(corsOptions));
 
 // define a simple route
 app.get('/', (req, res) => {
-    res.json({"message": "Welcome to labapay server application."});
+    res.json({"message": "Welcome to pohpoh server application."});
 });
 
 // User routes
 require ('./app/routes/user.routes') (app);
 // Transaction routes
-require ('./app/routes/visa.routes') (app);
+// require ('./app/routes/visa.routes') (app);
 
 app.use(logger.errorLogger);
 // listen for requests
