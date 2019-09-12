@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
+const env = require('../environment/secrets.env')
 
 const salt = bcrypt.genSaltSync(10);
 const UserSchema = mongoose.Schema({
@@ -125,7 +126,7 @@ UserSchema.methods.checkValidCredentials = async (email, password) => {
 UserSchema.methods.newAuthToken = async function(){
     try {
         const user  = this;
-        let token =  jwt.sign({ _id: user.id.toString() },'thisismyjwttoken', {expiresIn: "24h"});
+        let token =  jwt.sign({ _id: user.id.toString() }, env.JWT_KEY, {expiresIn: "24h"});
         user.tokens = user.tokens.concat({ token });
         await user.save();
         return {"error": false, "results": token};
