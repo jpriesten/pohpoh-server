@@ -48,8 +48,8 @@ app.get('/', (req, res) => {
 
 // User routes
 require ('./app/routes/user.routes') (app);
-// Transaction routes
-// require ('./app/routes/visa.routes') (app);
+// Product routes
+require ('./app/routes/product.routes') (app);
 
 app.use(logger.errorLogger);
 // listen for requests
