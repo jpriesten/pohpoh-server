@@ -22,21 +22,27 @@ exports.newProduct = (req, res) => {
     });
 };
 
-exports.getProducts = async (req, res) => {
+exports.getProductsByUser = async (req, res) => {
     console.log("userID: ", req.user._id);
-
     try {
         const products = await Product.find({userID: req.user._id});
-        // products.forEach(product => {
-        //     card.accountNumber = crypto.encrypt(card.accountNumber);
-        // });
-        // console.log(cards);
         res.status(201).send({"error": false, "result": products});
     } catch (error) {
         console.log("Errors", error);
         res.status(401).send({error: true, code: 13589, results: 'Can\'t get Product Details',
          message: error.message});
     }
+}
+
+exports.getAllProducts = async (req, res) => {
+  try {
+      const products = await Product.find();
+      res.status(201).send({"error": false, "result": products});
+  } catch (error) {
+      console.log("Errors", error);
+      res.status(401).send({error: true, code: 13590, results: 'Can\'t get Product Details',
+       message: error.message});
+  }
 }
 
 exports.deleteProduct = async (req, res) => {
@@ -47,7 +53,7 @@ exports.deleteProduct = async (req, res) => {
         res.status(201).send({"error": false, "result": deleteResult});
     } catch (error) {
         console.log("Errors", error);
-        res.status(401).send({error: true, code: 13589, results: 'Can\'t delete Product',
+        res.status(401).send({error: true, code: 13591, results: 'Can\'t delete Product',
          message: error.message});
     }
 }
