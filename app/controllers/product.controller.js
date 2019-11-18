@@ -34,6 +34,18 @@ exports.getProductsByUser = async (req, res) => {
     }
 }
 
+exports.getProductByCode = async (req, res) => {
+  console.log("Request: ", req.query);
+  try {
+      const products = await Product.find({productCode: req.query.productCode});
+      res.status(201).send({"error": false, "result": products});
+  } catch (error) {
+      console.log("Errors", error);
+      res.status(401).send({error: true, code: 13589, results: 'Can\'t get Product Details',
+       message: error.message});
+  }
+}
+
 exports.getAllProducts = async (req, res) => {
   try {
       const products = await Product.find();

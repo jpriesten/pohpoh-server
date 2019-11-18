@@ -11,6 +11,9 @@ module.exports = app => {
    // Retrieve all products
    app.get("/products", products.getAllProducts);
 
+   // Retrieve a product by product code
+   app.get("/product", products.getProductByCode);
+
    // Delete a product
    app.delete("/product", authenticate, products.deleteProduct);
 };
