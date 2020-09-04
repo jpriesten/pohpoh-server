@@ -31,7 +31,7 @@
     "nodemon": "^1.19.1",
     "randomstring": "^1.1.5",
     "request": "^2.88.0",
-    "simple-crypto-js": "^2.0.2",
+    "simple-crypto-js": "^2.3.0",
     "validator": "^11.1.0",
     "winston": "^3.2.1"
   },
